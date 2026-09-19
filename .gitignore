@@ -26,3 +26,8 @@ Thumbs.db
 # Build
 dist/
 build/
+# Datasets and trained models
+ML/datasets/*
+!ML/datasets/.gitkeep
+*.safetensors
+ML/models/
