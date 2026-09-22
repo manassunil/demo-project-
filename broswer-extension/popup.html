@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindLens AI</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <main class="popup">
+        <header>
+            <p class="eyebrow">Selected text analysis</p>
+            <h1>MindLens AI</h1>
+            <p class="description">Select text on a webpage, then open this extension to analyze only that selection.
+            </p>
+        </header>
+
+        <button id="analyzeButton" type="button">Analyze selection</button>
+
+        <p id="connectionStatus" class="status" role="status">Backend status: not checked</p>
+        <p id="loading" class="status hidden" role="status">Analyzing selected text...</p>
+        <p id="error" class="error hidden" role="alert"></p>
+
+        <section id="result" class="result hidden" aria-live="polite">
+            <div class="result-header">
+                <h2>Analysis result</h2>
+                <span id="riskLevel" class="risk-badge"></span>
+            </div>
+            <dl>
+                <div>
+                    <dt>Depression probability</dt>
+                    <dd id="probability">-</dd>
+                </div>
+                <div>
+                    <dt>Emotion</dt>
+                    <dd id="emotion">-</dd>
+                </div>
+                <div>
+                    <dt>Risk level</dt>
+                    <dd id="riskText">-</dd>
+                </div>
+            </dl>
+            <p id="message" class="message"></p>
+        </section>
+    </main>
+    <script src="popup.js"></script>
+</body>
+
+</html>

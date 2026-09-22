@@ -1,1 +1,2 @@
 ml/models/depression_distilbert/*.safetensors filter=lfs diff=lfs merge=lfs -text
+ML/models/combined_distilbert/model.safetensors filter=lfs diff=lfs merge=lfs -text

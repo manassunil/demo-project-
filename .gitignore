@@ -29,5 +29,10 @@ build/
 # Datasets and trained models
 ML/datasets/*
 !ML/datasets/.gitkeep
-ML/models/depression_distilbert/checkpoint-*/
+
+# Training checkpoints
+ML/models/*/checkpoint-*/
+
+# Secondary/experimental trained models
+ML/models/mhc_distilbert/
 

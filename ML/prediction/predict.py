@@ -4,11 +4,10 @@ import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-MODEL_DIR = PROJECT_ROOT / "ML" / "models" / "combined_distilbert"
+MODEL_DIR = Path("ML/models/depression_distilbert")
 
-# Load the model once when the backend starts.
-print("Loading MindLens AI model...")
+
+print("Loading model...")
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_DIR)
 model = AutoModelForSequenceClassification.from_pretrained(MODEL_DIR)
@@ -17,16 +16,10 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 model.eval()
 
-print(f"MindLens AI model loaded on: {device}")
+print(f"Model loaded on: {device}")
 
 
-def predict_depression(text: str) -> tuple[int, float]:
-    """
-    Returns:
-        label: predicted class (0 or 1)
-        probability: confidence for the predicted class
-    """
-
+def predict(text: str):
     inputs = tokenizer(
         text,
         return_tensors="pt",
@@ -40,8 +33,21 @@ def predict_depression(text: str) -> tuple[int, float]:
         outputs = model(**inputs)
 
     probabilities = torch.softmax(outputs.logits, dim=-1)[0]
+    predicted_label = int(torch.argmax(probabilities).item())
+    confidence = float(probabilities[predicted_label].item())
 
-    label = int(torch.argmax(probabilities).item())
-    probability = float(probabilities[label].item())
+    return predicted_label, confidence
 
-    return label, probability
+
+if __name__ == "__main__":
+    text = input("\nEnter text: ").strip()
+
+    if not text:
+        print("No text entered.")
+        raise SystemExit
+
+    label, confidence = predict(text)
+
+    print("\nPrediction:")
+    print(f"Label: {label}")
+    print(f"Model confidence: {confidence * 100:.2f}%")

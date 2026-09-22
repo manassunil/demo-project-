@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MindLens AI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="app-container">
+
+        <section class="hero">
+            <div class="logo">M</div>
+
+            <h1>MindLens AI</h1>
+
+            <p>
+                AI-powered language analysis for mental-health-related signals.
+            </p>
+        </section>
+
+
+        <section class="analysis-card">
+
+            <label for="textInput">
+                Enter text to analyze
+            </label>
+
+            <textarea id="textInput" placeholder="Write or paste some text here..." maxlength="5000"></textarea>
+
+            <div class="controls">
+                <span id="characterCount">0 / 5000</span>
+
+                <button id="analyzeButton">
+                    Analyze Text
+                </button>
+            </div>
+
+        </section>
+
+
+        <section id="loading" class="status-card hidden">
+            Analyzing with MindLens AI...
+        </section>
+
+
+        <section id="error" class="error-card hidden">
+        </section>
+
+
+        <section id="result" class="result-card hidden">
+
+            <div class="result-header">
+
+                <h2>Analysis Result</h2>
+
+                <span id="riskLevel" class="risk-badge">
+                </span>
+
+            </div>
+
+
+            <div class="probability-section">
+
+                <div class="probability-header">
+                    <span>Depression-related signal</span>
+
+                    <strong id="probability">
+                        0%
+                    </strong>
+                </div>
+
+                <div class="progress-bar">
+                    <div id="progress" class="progress"></div>
+                </div>
+
+            </div>
+
+
+            <div class="result-details">
+
+                <div class="detail">
+                    <span class="detail-label">
+                        Classification
+                    </span>
+
+                    <span id="emotion">
+                    </span>
+                </div>
+
+
+                <div class="detail">
+                    <span class="detail-label">
+                        Risk level
+                    </span>
+
+                    <span id="riskText">
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="message">
+                <strong>Note</strong>
+
+                <p id="message"></p>
+            </div>
+
+        </section>
+
+
+        <footer>
+            MindLens AI · AI classification is not a medical diagnosis.
+        </footer>
+
+    </main>
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>

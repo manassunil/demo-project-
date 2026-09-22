@@ -1,44 +1,49 @@
+from backend.services.model_service import predict_depression
+
+
 def analyze_text(text: str):
-    """
-    Temporary analysis function.
+    label, confidence = predict_depression(text)
 
-    This will be replaced with the real
-    Transformer model in Step 4.
-    """
+    # In our current dataset/model convention:
+    # label 1 = depression-related
+    # label 0 = non-depression-related
 
-    text_lower = text.lower()
+    if label == 1:
+        depression_probability = confidence
 
-    risk_words = [
-        "hopeless",
-        "worthless",
-        "empty",
-        "alone",
-        "depressed",
-        "sad",
-        "tired of life",
-    ]
+        if confidence >= 0.80:
+            risk_level = "high"
+        elif confidence >= 0.60:
+            risk_level = "medium"
+        else:
+            risk_level = "low"
 
-    matches = [word for word in risk_words if word in text_lower]
-
-    if len(matches) >= 2:
-        probability = 0.85
-        risk = "high"
-        emotion = "sadness"
-
-    elif len(matches) == 1:
-        probability = 0.55
-        risk = "medium"
-        emotion = "sadness"
+        emotion = "depression-related"
+        message = (
+            "The model detected language associated with depression-related content. "
+            "This is an AI classification signal, not a medical diagnosis."
+        )
 
     else:
-        probability = 0.10
-        risk = "low"
+        depression_probability = 1.0 - confidence
+
+        if depression_probability >= 0.80:
+            risk_level = "high"
+        elif depression_probability >= 0.60:
+            risk_level = "medium"
+        else:
+            risk_level = "low"
+
         emotion = "neutral"
+        message = (
+            "The model did not detect strong depression-related language. "
+            "This is an AI classification signal, not a medical diagnosis."
+        )
 
     return {
         "text": text,
-        "depression_probability": probability,
+        "depression_probability": depression_probability,
         "emotion": emotion,
-        "risk_level": risk,
-        "message": "Temporary rule-based analysis",
+        "risk_level": risk_level,
+        "message": message,
     }
